@@ -31,7 +31,7 @@ cp /etc/default/grub /etc/default/grub_bak-$(date +%y%m%d)
 sed -i 's/GRUB_DEFAULT/\# GRUB_DEFAULT/g' /etc/default/grub
 sed -i '1i GRUB_DEFAULT=0' /etc/default/grub
 # 生成 grub 配置文件
-grub2-mkconfig -o /boot/grub2/grub.cf
+grub2-mkconfig -o /boot/grub2/grub.cfg
 
 # 重启
 # reboot
