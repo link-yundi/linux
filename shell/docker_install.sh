@@ -17,7 +17,7 @@ echo "======================================================"
 mkdir -p /etc/docker
 tee /etc/docker/daemon.json <<-'EOF'
 {
-  "registry-mirrors": ["https://mucj676k.mirror.aliyuncs.com"]
+  	"registry-mirrors": ["https://mucj676k.mirror.aliyuncs.com"]
 }
 EOF
 systemctl daemon-reload

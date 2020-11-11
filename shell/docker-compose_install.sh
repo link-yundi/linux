@@ -13,3 +13,6 @@ SHA_FILE=sha256
 wget $ADDR
 wget $SHA_ADDR -O $SHA_FILE
 sha256sum -c $SHA_FILE
+
+chmod a+x docker-compose-Linux-x86_64
+cp docker-compose-Linux-x86_64 /usr/bin/docker-compose
