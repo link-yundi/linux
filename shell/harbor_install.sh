@@ -92,8 +92,8 @@ systemctl restart docker
 
 # 修改配置文件
 sed -i "s/hostname: reg.mydomain.com/hostname: ${DOMAIN}/g" harbor.yml
-sed -i "s/certificate: \/your\/certificate\/path/\/data\/cert\/${DOMAIN}.crt" harbor.yml
-sed -i "s/private_key: \/your\/private\/key\/path/\/data\/cert\/${DOMAIN}.key" harbor.yml
+sed -i "s/\/your\/certificate\/path/\/data\/cert\/${DOMAIN}.crt/g" harbor.yml
+sed -i "s/\/your\/private\/key\/path/\/data\/cert\/${DOMAIN}.key/g" harbor.yml
 
 bash prepare
 bash install.sh
