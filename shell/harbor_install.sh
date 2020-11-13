@@ -17,13 +17,18 @@ ORGANIZATION=xxii
 if [ ! -d $PWD/harbor ]
 then
 	mkdir $PWD/harbor
-	cd harbor
 fi
-
+cd harbor
 
 # 下载安装包
-wget https://github.com/goharbor/harbor/releases/download/${VERSION}/harbor-offline-installer-${VERSION}.tgz
-wget https://github.com/goharbor/harbor/releases/download/${VERSION}/md5sum
+if [ ! -e harbor-offline-installer-${VERSION}.tgz ]
+then
+	wget https://github.com/goharbor/harbor/releases/download/${VERSION}/harbor-offline-installer-${VERSION}.tgz
+fi
+if [! -e md5sum ]
+then
+	wget https://github.com/goharbor/harbor/releases/download/${VERSION}/md5sum
+fi
 
 # 校验
 md5sum -c md5sum | grep harbor-offline-installer-${VERSION}.tgz:
@@ -53,8 +58,8 @@ openssl genrsa -out ${DOMAIN}.key 4096
 
 openssl req -sha512 -new \
     -subj "/C=CN/ST=${PROVINCE}/L=${CITY}/O=${ORGANIZATION}/OU=Personal/CN=${DOMAIN}" \
-    -key yourdomain.com.key \
-    -out yourdomain.com.csr
+    -key ${DOMAIN}.key \
+    -out ${DOMAIN}.csr
 
 cat > v3.ext <<-EOF
 authorityKeyIdentifier=keyid,issuer
@@ -87,8 +92,8 @@ systemctl restart docker
 
 # 修改配置文件
 sed -i "s/hostname: reg.mydomain.com/hostname: ${DOMAIN}/g" harbor.yml
-sed -i "s/certificate: \/your\/certificate\/path/\/data\/cert\/${DOMIAN}.crt" harbor.yml
-sed -i "s/private_key: \/your\/private\/key\/path/\/data\/cert\/${DOMIAN}.key" harbor.yml
+sed -i "s/certificate: \/your\/certificate\/path/\/data\/cert\/${DOMAIN}.crt" harbor.yml
+sed -i "s/private_key: \/your\/private\/key\/path/\/data\/cert\/${DOMAIN}.key" harbor.yml
 
 bash prepare
 bash install.sh
