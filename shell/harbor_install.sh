@@ -25,7 +25,7 @@ if [ ! -e harbor-offline-installer-${VERSION}.tgz ]
 then
 	wget https://github.com/goharbor/harbor/releases/download/${VERSION}/harbor-offline-installer-${VERSION}.tgz
 fi
-if [! -e md5sum ]
+if [ ! -e md5sum ]
 then
 	wget https://github.com/goharbor/harbor/releases/download/${VERSION}/md5sum
 fi
