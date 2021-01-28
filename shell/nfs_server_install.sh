@@ -17,8 +17,8 @@ mkdir /nfs
 chown -R root.root /nfs
 
 # 配置nfs
-cat << EOF >> /etc/exports
-/nfs */24(rw,async,no_root_squash)
+cat << EOF > /etc/exports
+/nfs *(rw,async,no_root_squash,fsid=0)
 EOF
 
 # 设置开机启动并启动
