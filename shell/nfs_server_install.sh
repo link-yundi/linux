@@ -28,4 +28,4 @@ systemctl enable nfs
 systemctl restart nfs
 
 # 查看是否有可用的 nfs地址
-showmount -e $(curl ip.sb)
+showmount -e localhost
